@@ -19,4 +19,13 @@ node 'aron-desktop-ubuntu' {
 		source => 'puppet:///modules/arontest/index.html',
 		require => File['/usr/share/nginx/www/arontest.com'],
 	}
+
+	include aron-mysql
+
+	file { '/etc/mysql/my.cnf':
+		content => template('aron-mysql/my.cnf.erb'),
+		notify => Service['mysql'],
+	}
+
+
 }
